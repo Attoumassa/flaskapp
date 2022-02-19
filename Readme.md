@@ -5,7 +5,7 @@
 
 # Indications d'exécution
 ## Construire l'image
-    docker build -t flask_img
+    docker build -t flask_img .
 ## Lancer le container
     docker run --name flask_cnt -d -p 80:5000 flask_img
 
