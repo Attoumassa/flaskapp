@@ -9,21 +9,23 @@ RUN apt-get update -y
 RUN apt-get install -y python3.8
 #RUN apt update 
 RUN apt install -y python3-pip
+RUN apt install -y python3-dev
 
 # Install Flask needded by pathon app
-#RUN apt update 
-RUN pip3 install flask
+COPY ./requirements.txt /app/requirements.txt
+
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
 # copy python file
-COPY app.py /
+COPY ./app.py  /app/app.py
 # copy html file
-COPY templates/index.html /
+COPY ./templates/ /app/templates
 
-
-#COPY ./requirements.txt /
 # the container should expose port
-#EXPOSE 80
+EXPOSE 5000
 
 
 # run the application
-ENTRYPOINT FLASK_APP=app.py flask run --host=0.0.0.0
+ENTRYPOINT ["python3","app.py"]
 
